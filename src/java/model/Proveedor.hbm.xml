@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/03/2014 12:54:11 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.Proveedor" table="proveedor" catalog="bdjpweb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="contacto" type="string">
+            <column name="contacto" length="45" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="45" />
+        </property>
+        <property name="ciudad" type="string">
+            <column name="ciudad" length="45" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="telefono1" type="string">
+            <column name="telefono1" length="45" />
+        </property>
+        <property name="telefono2" type="string">
+            <column name="telefono2" length="45" />
+        </property>
+        <property name="detalles" type="string">
+            <column name="detalles" length="45" />
+        </property>
+        <property name="ruc" type="string">
+            <column name="ruc" length="45" />
+        </property>
+        <property name="banco" type="string">
+            <column name="banco" length="45" />
+        </property>
+        <set name="productos" inverse="true">
+            <key>
+                <column name="proveedor_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Producto" />
+        </set>
+    </class>
+</hibernate-mapping>

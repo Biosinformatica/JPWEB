@@ -1,0 +1,57 @@
+body {
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+  color: #045491;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+.ui-state-default .icon-new{
+    background-image: url(../images/icons/new.png);
+}
+.ui-state-default .icon-edit{
+    background-image: url(../images/icons/edit.png);
+}
+.ui-state-default .icon-delete{
+    background-image: url(../images/icons/delete.png);
+}
+.ui-state-default .icon-save4{
+    background-image: url(../images/icons/save4.png);
+}
+.ui-state-default .icon-cancel2{
+    background-image: url(../images/icons/cancel2.png);
+}
+.ui-state-default .icon-check2{
+    background-image: url(../images/icons/check2.png);
+}
+.ui-state-default .icon-view1{
+    background-image: url(../images/icons/view1.png);
+}
+.ui-state-default .icon-mail{
+    background-image: url(../images/icons/mail.png);
+}
+.ui-state-default .icon-mail3{
+    background-image: url(../images/icons/mail3.png);
+}

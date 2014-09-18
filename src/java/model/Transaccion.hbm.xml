@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/03/2014 12:54:11 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.Transaccion" table="transaccion" catalog="bdjpweb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="clave" type="string">
+            <column name="clave" length="45" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="45" not-null="true" />
+        </property>
+        <set name="movimientoencs" inverse="true">
+            <key>
+                <column name="transaccion_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Movimientoenc" />
+        </set>
+    </class>
+</hibernate-mapping>

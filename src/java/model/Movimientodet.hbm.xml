@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/03/2014 12:54:11 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.Movimientodet" table="movimientodet" catalog="bdjpweb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="movimientoenc" class="model.Movimientoenc" fetch="select">
+            <column name="movimientoenc_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="producto" class="model.Producto" fetch="select">
+            <column name="producto_id" not-null="true" />
+        </many-to-one>
+        <property name="precio" type="string">
+            <column name="precio" length="45" not-null="true" />
+        </property>
+        <property name="cantidad" type="string">
+            <column name="cantidad" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./../template.xhtml">
+            <ui:define name="content">
+                <p:growl id="msgs" showDetail="true"/>
+                
+                <h:form>
+                    <p:commandButton id="btnLineaproductoCreate" update=":formCreate" oncomplete="dialogLineaproductoCreate.show()" icon="icon-new" title="Crear" value="Crear"/>
+                </h:form>
+                
+                <h:form id="formDataTable">  
+                    <p:dataTable id="lineaproductos" var="lineaproductos" value="#{lineaproductoBean.lineaproductos}"
+                        paginator="true" rows="10" paginatorPosition="bottom"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <f:facet name="header">  
+                               Listado de Líneas de Productos
+                        </f:facet>
+                        
+                        <p:column headerText="Nombre" style="width:24%">  
+                            <h:outputText value="#{lineaproductos.nombre}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Descripcion" style="width:24%">  
+                            <h:outputText value="#{lineaproductos.descripcion}" />  
+                        </p:column>
+                        
+                        <p:column style="width:4%">  
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="dialogLineaproductoUpdate.show()" icon="icon-edit" title="Modificar">  
+                                <f:setPropertyActionListener value="#{lineaproductos}" target="#{lineaproductoBean.selectedLineaproducto}"/>  
+                            </p:commandButton>
+
+                            <p:commandButton id="btnDelete" update=":formDelete" oncomplete="dialogLineaproductoDelete.show()" icon="icon-delete" title="Eliminar">  
+                                <f:setPropertyActionListener value="#{lineaproductos}" target="#{lineaproductoBean.selectedLineaproducto}"/>  
+                            </p:commandButton>
+                        </p:column>  
+
+                    </p:dataTable>  
+                </h:form>
+
+                <h:form id="formCreate">
+                    <p:dialog header="Crear Línea de producto" widgetVar="dialogLineaproductoCreate" resizable="false" id="dlgLineaproductoCreate"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            
+                            <h:outputText value="Nombre:"/>  
+                            <p:inputText value="#{lineaproductoBean.selectedLineaproducto.nombre}"/>
+                            
+                            <h:outputText value="Descripción:"/>  
+                            <p:inputText value="#{lineaproductoBean.selectedLineaproducto.descripcion}"/>
+                            
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <p:commandButton id="btnCreateAceptar" update=":formDataTable, :msgs" oncomplete="dialogLineaproductoCreate.hide()" actionListener="#{lineaproductoBean.btnCreateLineaproducto(actionEvent)}" icon="icon-save4" title="Guardar" value="Guardar"/>
+                                <p:commandButton id="btnCreateCancelar" oncomplete="dialogLineaproductoCreate.hide()" icon="icon-cancel2" title="Cancelar" value="Cancelar"/>
+                            </f:facet>
+                        </h:panelGrid> 
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formUpdate">
+                    <p:dialog header="Modificar Línea de producto" widgetVar="dialogLineaproductoUpdate" resizable="false" id="dlgLineaproductoUpdate"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            
+                            <h:outputText value="Nombre:" />  
+                            <p:inputText value="#{lineaproductoBean.selectedLineaproducto.nombre}"/>
+                            
+                            <h:outputText value="Descripción:" />  
+                            <p:inputText value="#{lineaproductoBean.selectedLineaproducto.descripcion}"/>
+
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <h:inputHidden value="#{lineaproductoBean.selectedLineaproducto.id}"/>
+                                <p:commandButton id="btnUpdateAceptar" update=":formDataTable, :msgs" oncomplete="dialogLineaproductoUpdate.hide()" actionListener="#{lineaproductoBean.btnUpdateLineaproducto(actionEvent)}" icon="icon-save4" title="Guardar" value="Guardar"/>
+                                <p:commandButton id="btnUpdateCancelar" oncomplete="dialogLineaproductoUpdate.hide()" icon="icon-cancel2" title="Cancelar" value="Cancelar"/>
+                            </f:facet>
+                            
+                        </h:panelGrid>
+                    </p:dialog>  
+                </h:form>
+                
+                <h:form id="formDelete">
+                        <p:confirmDialog id="confirmDialog" message="Está seguro de eliminar el registro?" showEffect="fade" hideEffect="explode"
+                                         header="Eliminar Línea de producto" severity="alert" widgetVar="dialogLineaproductoDelete">  
+                            <h:inputHidden value="#{lineaproductoBean.selectedLineaproducto.id}"/>
+                            <p:commandButton id="confirm" value="Aceptar" update=":formDataTable, :msgs" oncomplete="dialogLineaproductoDelete.hide()"
+                                             actionListener="#{lineaproductoBean.btnDeleteLineaproducto(actionEvent)}" icon="icon-check2"/>
+                            <p:commandButton id="decline" value="Cancelar" onclick="dialogLineaproductoDelete.hide()" type="button" icon="icon-cancel2"/>  
+                        </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

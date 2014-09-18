@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+        <ui:composition template="./../template.xhtml">
+            <ui:define name="content">
+                <p:growl id="msgs" showDetail="true"/>
+                
+                <h:form>
+                    <p:commandButton id="btnProveedorCreate" update=":formCreate" oncomplete="dialogProveedorCreate.show()" icon="icon-new" title="Crear" value="Crear"/>
+                </h:form>
+                
+                <h:form id="formDataTable">  
+                    <p:dataTable id="proveedores" var="proveedores" value="#{proveedorBean.proveedores}"
+                        paginator="true" rows="10" paginatorPosition="bottom"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <f:facet name="header">  
+                               Listado de Proveedores  
+                        </f:facet>
+                        
+                        <p:column headerText="Nombre" style="width:18%">  
+                            <h:outputText value="#{proveedores.nombre}"/>  
+                        </p:column>
+                        
+                        <p:column headerText="Contacto" style="width:18%">  
+                            <h:outputText value="#{proveedores.contacto}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Dirección" style="width:20%">  
+                            <h:outputText value="#{proveedores.direccion}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Ciudad" style="width:15%">  
+                            <h:outputText value="#{proveedores.ciudad}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Email" style="width:25%">  
+                            <h:outputText value="#{proveedores.email}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Teléfono 1" style="width:35%">  
+                            <h:outputText value="#{proveedores.telefono1}" />  
+                        </p:column>
+                        
+                        <p:column headerText="Teléfono 2" style="width:30%">  
+                            <h:outputText value="#{proveedores.telefono2}" />  
+                        </p:column>
+                        
+                        <p:column style="width:4%">
+                            
+                            <p:commandButton id="btnView" update=":formView" oncomplete="dialogProveedorView.show()" icon="icon-view1" title="Ver información completa">  
+                                <f:setPropertyActionListener value="#{proveedores}" target="#{proveedorBean.selectedProveedor}"/>  
+                            </p:commandButton>
+                            
+                            <p:commandButton id="btnSend" update=":formSend" oncomplete="dialogProveedorSend.show()" icon="icon-mail" title="Enviar Email">  
+                                <f:setPropertyActionListener value="#{proveedores}" target="#{proveedorBean.selectedProveedor}"/>  
+                            </p:commandButton>
+                            
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="dialogProveedorUpdate.show()" icon="icon-edit" title="Modificar">  
+                                <f:setPropertyActionListener value="#{proveedores}" target="#{proveedorBean.selectedProveedor}"/>  
+                            </p:commandButton>
+
+                            <p:commandButton id="btnDelete" update=":formDelete" oncomplete="dialogProveedorDelete.show()" icon="icon-delete" title="Eliminar">  
+                                <f:setPropertyActionListener value="#{proveedores}" target="#{proveedorBean.selectedProveedor}"/>  
+                            </p:commandButton>
+                        </p:column>  
+
+                    </p:dataTable>  
+                </h:form>
+
+                <h:form id="formCreate">
+                    <p:dialog header="Crear Proveedor" widgetVar="dialogProveedorCreate" resizable="false" id="dlgProveedorCreate"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            
+                            <h:outputText value="Nombre:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.nombre}"/>
+                            
+                            <h:outputText value="Contacto:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.contacto}"/>
+                            
+                            <h:outputText value="Dirección:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.direccion}"/>
+                            
+                            <h:outputText value="Ciudad:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.ciudad}"/>
+                            
+                            <h:outputText value="Email:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.email}"/>
+                            
+                            <h:outputText value="Teléfono 1:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.telefono1}"/>
+                            
+                            <h:outputText value="Teléfono 2:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.telefono2}"/>
+                            
+                            <h:outputText value="Detalles:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.detalles}"/>
+                            
+                            <h:outputText value="Ruc:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.ruc}"/>
+                            
+                            <h:outputText value="Banco:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.banco}"/>
+                            
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <p:commandButton id="btnCreateAceptar" update=":formDataTable, :msgs" oncomplete="dialogProveedorCreate.hide()" actionListener="#{proveedorBean.btnCreateProveedor(actionEvent)}" icon="icon-save4" title="Guardar" value="Guardar"/>
+                                <p:commandButton id="btnCreateCancelar" oncomplete="dialogProveedorCreate.hide()" icon="icon-cancel2" title="Cancelar" value="Cancelar"/>
+                            </f:facet>
+                        </h:panelGrid> 
+                    </p:dialog>  
+                </h:form>
+                
+                <h:form id="formView">
+                    <p:dialog header="Visualizar Proveedor" widgetVar="dialogProveedorView" resizable="false" id="dlgProveedorView"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            
+                            <h:outputText value="Nombre:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.nombre}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Contacto:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.contacto}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Dirección:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.direccion}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Ciudad:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.ciudad}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Email:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.email}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Teléfono 1:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.telefono1}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Teléfono 2:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.telefono2}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Detalles:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.detalles}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Ruc:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.ruc}" style="color: #036fab"/>
+                            
+                            <h:outputText value="Banco:"/>  
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.banco}" style="color: #036fab"/>
+
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <h:inputHidden value="#{proveedorBean.selectedProveedor.id}"/>
+                                <p:commandButton id="btnUpdateCancelar" oncomplete="dialogProveedorView.hide()" icon="icon-cancel2" title="Cerrar" value="Cerrar"/>
+                            </f:facet>
+                            
+                        </h:panelGrid>
+                    </p:dialog>  
+                </h:form>
+
+                <h:form id="formUpdate">
+                    <p:dialog header="Modificar Proveedor" widgetVar="dialogProveedorUpdate" resizable="false" id="dlgProveedorUpdate"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            
+                            <h:outputText value="Nombre:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.nombre}"/>
+                            
+                            <h:outputText value="Contacto:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.contacto}"/>
+                            
+                            <h:outputText value="Dirección:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.direccion}"/>
+                            
+                            <h:outputText value="Ciudad:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.ciudad}"/>
+                            
+                            <h:outputText value="Email:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.email}"/>
+                            
+                            <h:outputText value="Teléfono 1:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.telefono1}"/>
+                            
+                            <h:outputText value="Teléfono 2:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.telefono2}"/>
+                            
+                            <h:outputText value="Detalles:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.detalles}"/>
+                            
+                            <h:outputText value="Ruc:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.ruc}"/>
+                            
+                            <h:outputText value="Banco:"/>  
+                            <p:inputText value="#{proveedorBean.selectedProveedor.banco}"/>
+
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <h:inputHidden value="#{proveedorBean.selectedProveedor.id}"/>
+                                <p:commandButton id="btnUpdateAceptar" update=":formDataTable, :msgs" oncomplete="dialogProveedorUpdate.hide()" actionListener="#{proveedorBean.btnUpdateProveedor(actionEvent)}" icon="icon-save4" title="Guardar" value="Guardar"/>
+                                <p:commandButton id="btnUpdateCancelar" oncomplete="dialogProveedorUpdate.hide()" icon="icon-cancel2" title="Cancelar" value="Cancelar"/>
+                            </f:facet>
+                            
+                        </h:panelGrid>
+                    </p:dialog>  
+                </h:form>
+                
+                <h:form id="formDelete">
+                        <p:confirmDialog id="confirmDialog" message="Está seguro de eliminar el registro?" showEffect="fade" hideEffect="explode"
+                                         header="Eliminar Proveedor" severity="alert" widgetVar="dialogProveedorDelete">  
+                            <h:inputHidden value="#{proveedorBean.selectedProveedor.id}"/>
+                            <p:commandButton id="confirm" value="Aceptar" update=":formDataTable, :msgs" oncomplete="dialogProveedorDelete.hide()"
+                                             actionListener="#{proveedorBean.btnDeleteProveedor(actionEvent)}" icon="icon-check2"/>
+                            <p:commandButton id="decline" value="Cancelar" onclick="dialogProveedorDelete.hide()" type="button" icon="icon-cancel2"/>  
+                        </p:confirmDialog>
+                </h:form>
+                
+                <h:form id="formSend">
+                    <p:dialog header="Enviar Correo" widgetVar="dialogProveedorSend" resizable="false" id="dlgProveedorSend"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+                            
+                            <h:outputText value="Enviando mail a:"/> <br/>
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.nombre}"/>
+                            
+                            <p:outputLabel value="#{proveedorBean.selectedProveedor.email}"/>
+                            
+                            <h:outputText value="Destinatario"/>
+                            <p:inputText value="#{mailBean.destinatario}" size="33"/>
+                            
+                            <h:outputText value="Asunto"/>
+                            <p:inputText value="#{mailBean.asunto}" size="33"/>
+                            
+                            <h:outputText value="Mensaje"/>
+                            <p:inputTextarea rows="6" cols="33" value="#{mailBean.mensaje}" />
+                            
+                            <f:facet name="footer">
+                                <p:separator/>
+                                <p:commandButton id="btnCreateAceptar" update=":formDataTable, :msgs" oncomplete="dialogProveedorSend.hide()" actionListener="#{mailBean.main(args)}" icon="icon-mail" title="Enviar" value="Enviar"/>
+                                <p:commandButton id="btnCreateCancelar" oncomplete="dialogProveedorSend.hide()" icon="icon-cancel2" title="Cancelar" value="Cancelar"/>
+                            </f:facet>
+                        </h:panelGrid> 
+                    </p:dialog>  
+                </h:form>
+                
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

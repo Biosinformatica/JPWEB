@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/03/2014 12:54:11 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.Producto" table="producto" catalog="bdjpweb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="proveedor" class="model.Proveedor" fetch="select">
+            <column name="proveedor_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="categoria" class="model.Categoria" fetch="select">
+            <column name="categoria_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lineaproducto" class="model.Lineaproducto" fetch="select">
+            <column name="lineaproducto_id" not-null="true" />
+        </many-to-one>
+        
+        <many-to-one name="sucursal" class="model.Sucursal" fetch="select">
+            <column name="sucursale_id" not-null="true" />
+        </many-to-one>
+        
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="preciocompra" type="string">
+            <column name="preciocompra" length="45" not-null="true" />
+        </property>
+        <property name="precioventa" type="string">
+            <column name="precioventa" length="45" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" length="45" not-null="true" />
+        </property>
+        <property name="numeroserie" type="string">
+            <column name="numeroserie" length="45" />
+        </property>
+        <property name="codigobarra" type="string">
+            <column name="codigobarra" length="45" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="45" not-null="true" />
+        </property>
+        <property name="unidadmedida" type="string">
+            <column name="unidadmedida" length="45" />
+        </property>
+        <property name="cantidad" type="string">
+            <column name="cantidad" length="45" not-null="true" />
+        </property>
+        <property name="medida" type="string">
+            <column name="medida" length="45" />
+        </property>
+        <property name="imagen" type="string">
+            <column name="imagen" length="45"/>
+        </property>
+        <set name="movimientodets" inverse="true">
+            <key>
+                <column name="producto_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Movimientodet" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05/03/2014 12:54:11 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.Usuario" table="usuario" catalog="bdjpweb">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="rol" class="model.Rol" fetch="select">
+            <column name="rol_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sucursal" class="model.Sucursal" fetch="select">
+            <column name="sucursal_id" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="apeliido" type="string">
+            <column name="apeliido" length="45" not-null="true" />
+        </property>
+        <property name="usuario" type="string">
+            <column name="usuario" length="45" not-null="true" />
+        </property>
+        <property name="clave" type="string">
+            <column name="clave" length="45" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <set name="movimientoencs" inverse="true">
+            <key>
+                <column name="usuario_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Movimientoenc" />
+        </set>
+    </class>
+</hibernate-mapping>
